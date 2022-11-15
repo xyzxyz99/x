@@ -1,4 +1,7 @@
-server.js*
+2 folder clint & server
+npm init -y
+npm i express mongoose cors nodemon
+create new file in server name as server.js*
 
 const express=require('express')
 const mongoose=require('mongoose')
