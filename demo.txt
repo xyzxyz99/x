@@ -16,7 +16,7 @@ app.listen(5000,()=>{
     console.log('server connecting')
 })
 
-model*
+create folder model & new fie student_model.js*
 
 const mongoose=require('mongoose')
 const signup=mongoose.Schema({
@@ -33,7 +33,7 @@ const signup=mongoose.Schema({
 
 module.exports=mongoose.model('student_masters',signup)
 
-route*
+new folder in server, new file student_route.js*
 
 const express=require('express')
 const router=express.Router()
