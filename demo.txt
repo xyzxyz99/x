@@ -1,0 +1,86 @@
+server.js*
+
+const express=require('express')
+const mongoose=require('mongoose')
+const cors=require('cors')
+const routesStud=require('./route/student_route')
+const app=express()
+
+
+mongoose.connect('mongodb://localhost:27017/student')
+app.use(express.json())
+app.use(cors())
+app.use('/student',routesStud)
+
+app.listen(5000,()=>{
+    console.log('server connecting')
+})
+
+model*
+
+const mongoose=require('mongoose')
+const signup=mongoose.Schema({
+    name:{
+        type:String,
+        required:true,
+    },
+
+    city:{
+        type:String,
+        required:true,
+    },
+})
+
+module.exports=mongoose.model('student_masters',signup)
+
+route*
+
+const express=require('express')
+const router=express.Router()
+const signupinfo=require('../models/student_model')
+
+//insert
+
+router.post('/signup',async(req,res)=>{
+    const signupentry = new signupinfo({
+        name:req.body.name,
+        city:req.body.city,
+    })
+    signupentry.save()
+})
+
+//display
+router.get('/dispstudent',async(req,res)=>{
+    const data= await signupinfo.find()
+    res.json(data)
+})
+module.exports=router
+
+
+
+
+Client
+import React,{useState} from 'react'
+import axios from 'axios'
+
+const CreateStudent = () => {
+    const [name,setname]=useState('')
+    const [city,setcity]=useState('')
+    const handleName = (e)=>{
+        setname(e.target.value)
+    }
+
+  return (
+    <div className='App'>
+    <header className='App-header'>
+    <h3>Student Registration</h3> 
+    <label>
+    Name:    
+    </label>   
+    <input type="text" name="name" id="name" required onChange={(e)=>handleName(e)}>Name</input>
+    </header>    
+    </div>
+  )
+}
+
+export default CreateStudent
